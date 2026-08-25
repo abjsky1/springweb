@@ -1,0 +1,14 @@
+HTTP : 
+
+Servlet : HTTP 를 JAVA 에서 사용할 수 있게 구현한 웹 기술
+
+Servlet 제공처 : Apache Tomcat , Spring Boot Web 에는 내장되어 있음.
+
+WAS(Web Application Server) 동작구조 : 
+    
+    Client 요청 ==>> 
+    정적컨텐츠-Response , 동적컨텐츠-Request ==>> 
+    Web Container ==>> 
+    최초사용O-init() , 최초사용X-service() ==>> 
+    doGet() , doPost() ==>>
+    DB
