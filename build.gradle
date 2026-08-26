@@ -17,8 +17,17 @@ repositories {
 	mavenCentral()
 }
 
+// 의존성 dependencies { } 안에 프로젝트 안에 추가할 라이브러리 코드
 dependencies {
+
+//	1. springboot
+
 	implementation 'org.springframework.boot:spring-boot-starter-webmvc'
+
+//	2. myspl
+
+  	implementation 'com.mysql:mysql-connector-j'
+
 	testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }

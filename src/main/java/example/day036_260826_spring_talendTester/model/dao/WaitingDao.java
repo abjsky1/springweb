@@ -1,25 +1,25 @@
-package example.day036_260826_spring.model.dao;
+package example.day036_260826_spring_talendTester.model.dao;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import example.day036_260826_spring.model.dto.BoardDto;
+import example.day036_260826_spring_talendTester.model.dto.WaitingDto;
 
-public class BoardDao extends BaseDao{
+public class WaitingDao extends BaseDao{
 
-    private BoardDao(){}
-    private static final BoardDao instance = new BoardDao();
-    public static BoardDao getInstance(){return instance;}
+    private WaitingDao(){}
+    private static final WaitingDao instance = new WaitingDao();
+    public static WaitingDao getInstance(){return instance;}
 
 //  [1] 등록
 
-        public boolean save( BoardDto boardDto ){
+        public boolean save( WaitingDto waitingDto ){
         
         //  1. SQL 작성
             
-            String sql = "insert into board( content , writer ) values( ? , ? )";
+            String sql = "insert into waitingList( phoneNumber , people ) values( ? , ? )";
 
         //  * try & catch
             try{
@@ -32,8 +32,8 @@ public class BoardDao extends BaseDao{
 
         //      ps.set타입( ?순서번호 , 입력받은값 )
 
-            ps.setString(1 , boardDto.getContent());
-            ps.setString(2, boardDto.getWriter());
+            ps.setString(1 , waitingDto.getPhoneNumber());
+            ps.setInt(2, waitingDto.getPeople());
 
         //  4. 기재된 SQL 실행
         
@@ -42,8 +42,6 @@ public class BoardDao extends BaseDao{
         //      ps.executeUpdate() : 실행 후 업데이트 횟수 반환함.
 
             int result = ps.executeUpdate();
-
-
 
 
         //  5. SQL 실행 결과
@@ -59,14 +57,14 @@ public class BoardDao extends BaseDao{
 
 //  [2] 전체조회
 
-    public ArrayList<BoardDto> findAll(){
+    public ArrayList<WaitingDto> findAll(){
 
-        ArrayList<BoardDto> list = new ArrayList<>();
+        ArrayList<WaitingDto> list = new ArrayList<>();
 
         try{
         //  1. SQL 작성
 
-            String sql = "select * from board";
+            String sql = "select * from waitingList";
 
         //  2. SQL 기재
 
@@ -86,17 +84,17 @@ public class BoardDao extends BaseDao{
 
             while(rs.next()){
 
-                BoardDto boardDto = new BoardDto();
+                WaitingDto waitingDto = new WaitingDto();
 
         //      rs.get타입( "가져올속성명" )
 
-                boardDto.setNo( rs.getInt("no") );
+                waitingDto.setNo( rs.getInt("no") );
 
-                boardDto.setContent( rs.getString("content") );
+                waitingDto.setPhoneNumber( rs.getString("phoneNumber") );
 
-                boardDto.setWriter( rs.getString("writer") );
+                waitingDto.setPeople( rs.getInt("people") );
 
-                list.add(boardDto);
+                list.add(waitingDto);
 
             }
 
@@ -109,12 +107,12 @@ public class BoardDao extends BaseDao{
 
 //  [3] 수정
 
-    public boolean update( BoardDto boardDto ){
+    public boolean update( WaitingDto waitingDto ){
         try{
-            String sql = "update board set content = ? where no = ? ";// 1.1 SQL 작성
+            String sql = "update waitingList set people = ? where phoneNumber = ? ";// 1.1 SQL 작성
             PreparedStatement ps = conn.prepareStatement(sql); // 1.2 SQL 기재 *예외*
-            ps.setString( 1 , boardDto.getContent() );// 1.3 SQL내 ? 매개변수대입
-            ps.setInt( 2 , boardDto.getNo() );
+            ps.setInt( 1 , waitingDto.getPeople() );// 1.3 SQL내 ? 매개변수대입
+            ps.setString( 2 , waitingDto.getPhoneNumber() );
             int result = ps.executeUpdate(); // 1.4 SQL 실행
             if( result == 1 ) return true; // 1.5 실행 결과 반환
         }catch( SQLException e ){ System.out.println( e ); }
@@ -124,10 +122,10 @@ public class BoardDao extends BaseDao{
 
 // [4] 삭제
 
-    public boolean delete( int no ){
-        try{ String sql = "delete from board where no = ?";
+    public boolean delete( String phoneNumber ){
+        try{ String sql = "delete from waitingList where phoneNumber = ?";
             PreparedStatement ps = conn.prepareStatement( sql );
-            ps.setInt( 1 , no ); // SQL 문법내 첫번째 ? 에 매개변수 값 대입 
+            ps.setString( 1 , phoneNumber ); // SQL 문법내 첫번째 ? 에 매개변수 값 대입 
             int result = ps.executeUpdate();
             if( result == 1 ) return true;
         }catch( SQLException e ){ System.out.println( e ); }

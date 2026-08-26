@@ -1,20 +1,17 @@
-package example.day036_260826_spring.controller;
+package example.day036_260826_spring_talendTester.controller;
 
 import java.util.ArrayList;
 
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RestController;
 
-import example.day036_260826_spring.model.dao.BoardDao;
-import example.day036_260826_spring.model.dto.BoardDto;
+import example.day036_260826_spring_talendTester.model.dao.WaitingDao;
+import example.day036_260826_spring_talendTester.model.dto.WaitingDto;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+
 
 
 
@@ -58,24 +55,24 @@ import org.springframework.web.bind.annotation.PathVariable;
 */
 
 @RestController
-public class BoardController {
+public class WaitingController {
 
 //  private BoardController(){}
 //  private static final BoardController instance = new BoardController();
 //  public static BoardController getInstance(){return instance;}
 
-    private BoardDao bd = BoardDao.getInstance();
+    private WaitingDao wd = WaitingDao.getInstance();
 
 //  [1] 등록
 
 //      1. PostMapping("/URL") : HTTP 메소드 중에 POST 메소드 매핑/연결/대응 어노테이션
 
-        @PostMapping("/board/save")
-        public boolean save( BoardDto boardDto ){
+        @PostMapping("/waiting/save")
+        public boolean save( WaitingDto waitingDto ){
 
         //  view에게 전달받은 매개변수을 dao에게전달
         
-                boolean result = bd.save(boardDto);
+                boolean result = wd.save(waitingDto);
         
         //  dao에게 받은 결과을 view 반환
 
@@ -86,10 +83,10 @@ public class BoardController {
 
 //  [2] 전체조회
 
-        @GetMapping("/board/findall")
-        public ArrayList<BoardDto> findAll(){
+        @GetMapping("/waiting/findall")
+        public ArrayList<WaitingDto> findAll(){
 
-            ArrayList<BoardDto> result = bd.findAll();
+            ArrayList<WaitingDto> result = wd.findAll();
 
             return result;
 
@@ -97,16 +94,16 @@ public class BoardController {
 
 
 // [3] 수정 Controller 
-    @PutMapping("/board/update")
-    public boolean update( BoardDto boardDto ){
-        return bd.update( boardDto );
+    @PutMapping("/waiting/update")
+    public boolean update( WaitingDto waitingDto ){
+        return wd.update( waitingDto );
     }
 
 
 // [4] 개별삭제 Controller
-    @DeleteMapping("/board/delete")
-    public boolean delete( int no ){
-        return bd.delete( no );
+    @DeleteMapping("/waiting/delete")
+    public boolean delete( String phoneNumber ){
+        return wd.delete( phoneNumber );
     }
 
 
