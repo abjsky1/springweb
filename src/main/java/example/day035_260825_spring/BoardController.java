@@ -1,4 +1,4 @@
-package example.day01_260825_spring;
+package example.day035_260825_spring;
 
 import java.io.IOException;
 

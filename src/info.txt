@@ -43,3 +43,6 @@ WAS(Web Application Server) 동작구조 :
     최초사용O-init() , 최초사용X-service() ==>> 
     doGet() , doPost() ==>>
     DB
+
+
+src/java(동적서버)Tomcat  +  resources/static(정적서버)apache  =>  apache Tomcat
