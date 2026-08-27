@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <title>Page Title</title>
+    <link rel='stylesheet' href='main.css'>
+</head>
+<body>
+    
+    <h3>대기열 등록 현황</h3>
+
+    <div>
+        전화번호 입력 : <input type="text" id="phoneNumber">
+        <br/>
+        인원수 입력 : <input type="text" id="people">
+        <br/>
+        <button onclick="waitingSave()">등록</button>
+    </div>
+
+    <br/>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>no</th>
+                <th>전화번호</th>
+                <th>인원수</th>
+                <th>비고</th>
+            </tr>
+        </thead>
+        <tbody id="tbody">
+            <tr>
+                <td>1</td>
+                <td>010-1234-5678</td>
+                <td>3명</td>
+                <td>
+                    <button>수정</button><button>삭제</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="index.js"></script>
+
+</body>
+</html>
