@@ -26,7 +26,14 @@ dependencies {
 
 //	2. myspl
 
+//	runtimeOnly 'com.mysql:mysql-connector-j'
   	implementation 'com.mysql:mysql-connector-j'
+
+// 	3. Lombok
+
+	compileOnly 'org.projectlombok:lombok'
+  	annotationProcessor 'org.projectlombok:lombok'
+	
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
