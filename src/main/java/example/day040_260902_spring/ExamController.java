@@ -2,9 +2,12 @@ package example.day040_260902_spring;
 
 import java.util.List;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
@@ -28,16 +31,32 @@ public class ExamController {
 
     }
 
-//  [2] 저장 : 
+//  [2] 저장 : http://localhost:8080/day040_260902_spring/exam
+//  { "ename" : "김길리" }
     @PostMapping("/day040_260902_spring/exam")
     public boolean save( @RequestBody ExamEntity entity ){
-        
+
     //  서비스 호출
         return examService.save(entity);
 
     }
-// 
-// 
+
+//  [3] 삭제
+    @DeleteMapping("/day040_260902_spring/exam")
+    public boolean delete(@RequestParam(name = "no") int no){
+        
+    //  서비스 호출
+        return examService.delete(no);
+
+    }
+
+//  [4] 수정
+    @PutMapping("/day040_260902_spring/exam")
+    public boolean update(@RequestBody ExamEntity entity){
+
+    //  서비스 호출
+        return examService.update(entity);
+    }
 // 
 // 
 // 
