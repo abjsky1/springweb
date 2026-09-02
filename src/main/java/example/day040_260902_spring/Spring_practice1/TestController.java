@@ -1,4 +1,4 @@
-package example.day040_260902_spring;
+package example.day040_260902_spring.Spring_practice1;
 
 import java.util.ArrayList;
 
