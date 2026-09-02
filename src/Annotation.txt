@@ -34,3 +34,14 @@
 10. @ModelAttribute: 			    HTTP 요청 파라미터를 java 객체(DTO)의 필드에 자동으로 매핑하여 저장하는 어노테이션
 11. @PathVariable:			        URL 경로에 포함된 변수 값을 추출하여 메소드 매개변수에 저장하는 어노테이션
 12. @RequestBody: 			        HTTP 요청 Body 에 담긴 JSON XML 등 데이터를 java 객체(DTO)로 변환하여 저장하는 어노테이션
+
+
+
+@RestController // restful 웹 서비스 제공하는 컨트롤러를 빈(객체) 등록
+@Service        // 비지니스 로직 담당하는 빈(객체) 등록
+@Repository     // 리포지토리(DB조작) 담당하는 빈(객체) 등록
+@Entity         // 엔티티 빈(객체) 등록
+
+
+
+
