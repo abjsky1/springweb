@@ -1,9 +1,9 @@
-package example.day040_260902_Spring_practice1;
+package example.day040_260902_spring.Spring_practice2;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication  // 톰캣 자동 구성 , 컴포넌트 스캔 및 설정 기능 포함한 시작점 지정
+@SpringBootApplication
 public class AppStart {
 
     public static void main(String[] args) {
@@ -11,5 +11,4 @@ public class AppStart {
         SpringApplication.run(AppStart.class);
 
     }
-    
 }

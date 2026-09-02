@@ -1,4 +1,4 @@
-package example.day040_260902_spring;
+package example.day040_260902_spring.Spring_exam1;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
