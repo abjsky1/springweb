@@ -1,4 +1,4 @@
-package example.day041_260903_spring;
+package example.day041_260903_spring.Spring_exam1;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

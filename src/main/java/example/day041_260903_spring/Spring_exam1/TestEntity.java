@@ -1,4 +1,4 @@
-package example.day041_260903_spring;
+package example.day041_260903_spring.Spring_exam1;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -55,5 +55,26 @@ public class TestEntity extends BaseTime{
     @Column( insertable = true ) : 해당 컬럼을 SQL에 insert 적용 여부 
 
     @Column( updatable = true ) : 해당 컬럼을 SQL에 update 적용 여부
+
+*/
+
+/*
+
+    src/main/resources/sql/v1_260903.sql
+
+    C:\KDT\springweb
+    │
+    ├─ src
+    │   └─ main
+    │       ├─ java
+    │       │   └─ example
+    │       │       └─ day041_260903_spring
+    │       │           └─ AppStart.java
+    │       │
+    │       └─ resources
+    │           ├─ application.properties
+    │           │
+    │           └─ sql
+    │               └─ v1_260903.sql
 
 */
