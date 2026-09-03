@@ -3,9 +3,9 @@
     코드에 특별한 의미나 기능을 부여하는 마커입니다.
 
 자바
-01. @Override   :       상위 클래스 및 인터페이스의 메소드를 재정의하라는 것을 명시 및 검증
-02. @Retention  : 		어노테이션의 생명주기 유지범위 설정(runtime source class)
-03. @Target     : 		어노테이션의 적용 대상 설정 (field method type)
+01. @Override       :   상위 클래스 및 인터페이스의 메소드를 재정의하라는 것을 명시 및 검증
+02. @Retention      :   어노테이션의 생명주기 유지범위 설정(runtime source class)
+03. @Target         :   어노테이션의 적용 대상 설정 (field method type)
 
 롬복
 01. @NoArgsConstructor          :   기본생성자 자동 생성 어노테이션
@@ -51,8 +51,6 @@
 
 
 
-
-
 @RestController                 // restful 웹 서비스 제공하는 컨트롤러를 빈(객체) 등록
 @Service                        // 비지니스 로직/트랜젝션 담당하는 빈(객체) 등록
 @Repository                     // 리포지토리(DB조작) 담당하는 빈(객체) 등록 , Entity 영속성 연결하는 인터페이스 등록 , extends JpaRepository< ExamEntity , Integer > 상속받기
@@ -61,6 +59,21 @@
 @Id                             // Primary Key 지정
 @GeneratedValue( strategy = GenerationType.IDENTITY )   // auto_increment 지원
 @Transactional                  // 여러개의 SQL을 하나의 (논리)단위로 묶을 때 사용, JPA 수정에서는 필수 사용.
+
+
+@Column( name = "필드명" ) : 필드명 생략시 자동으로 멤버변수명으로 지정
+@Column( nullable = true ) : Not Null
+@Column( length = 문자열길이 ) : 최대 255까지 가능 
+@Column( unique = true ) : 중복 불가능 - true , 중복 가능 - false
+@Column( columnDefinition = "DB DDL 구문 직접 작성" ) : SQL 문법을 직접 작성
+@Column( insertable = true ) : 해당 컬럼을 SQL에 insert 적용 여부 
+@Column( updatable = true ) : 해당 컬럼을 SQL에 update 적용 여부
+
+@CreatedDate : 엔티티가 영속화(INSERT)될 때의 현재 일시를 자동으로 기록.
+@LastModifiedDate : 엔티티의 데이터가 변경(UPDATE)될 때의 변경 일시를 자동으로 갱신.
+@MappedSuperclass  // 공통 매핑 정보가 필요할 때 상속용 추상 부모 클래스에 선언.
+@EntityListeners( AuditingEntityListener.class )  // 엔티티의 생명주기(Lifecycle: Persist, Update 등) 이벤트를 감지하는 리스너(구현체) 등록.
+@EnableJpaAuditing  // Spring Boot 애플리케이션에 JPA Auditing(등록/수정) 감시 기능을 활성화하는 트리거 어노테이션. AppStart 클래스 상단에 선언.
 
 
 
