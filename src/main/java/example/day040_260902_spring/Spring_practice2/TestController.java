@@ -3,6 +3,7 @@ package example.day040_260902_spring.Spring_practice2;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +20,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @RequestMapping("Spring_practice2")
 public class TestController {
+
+//  DI : IOC(제어역전) 기반으로 스프링에 객체(빈)가 등록된 객체(빈) 주입
+//  @Autowired private TestService testService1;
 
     private final TestService testService;
 

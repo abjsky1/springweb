@@ -34,11 +34,18 @@ public class TestService {
 //  [3] 개별조회
     public TestEntity testDetail(int no){
 
+    //  Optional 클래스 :
+    
+    //      객체 사용시 null 예외가 발생하는 경우 안전하게 사용할 수 있도록 만들어주는 메소드.
+
         Optional<TestEntity> optional = testRepository.findById(no);
 
-        TestEntity testEntity = optional.get();
-
-        return testEntity;
+        if( optional.isPresent() ){
+            TestEntity testEntity = optional.get();
+            return testEntity;
+        }
+        return null;
+        
     }
 
 //  [4] 삭제
@@ -47,6 +54,18 @@ public class TestService {
         testRepository.deleteById(no);
 
         return true;
+
+    /*
+        삭제할 pk 가 있는지 확인하고 삭제하는 방법.
+
+        Optional<TestEntity> optional = testRepository.findById(no);
+
+        if (optional.isPresent()){
+            testRepository.delete(optional.get());
+            return true;
+        }
+        return false;
+    */
     }
 
 //  [5] 수정

@@ -3,37 +3,53 @@
     코드에 특별한 의미나 기능을 부여하는 마커입니다.
 
 자바
-01. @Override: 		        상위 클래스 및 인터페이스의 메소드를 재정의하라는 것을 명시 및 검증
-02. @Retention: 		    어노테이션의 생명주기 유지범위 설정(runtime source class)
-03. @Target: 		        어노테이션의 적용 대상 설정 (field method type)
+01. @Override   :       상위 클래스 및 인터페이스의 메소드를 재정의하라는 것을 명시 및 검증
+02. @Retention  : 		어노테이션의 생명주기 유지범위 설정(runtime source class)
+03. @Target     : 		어노테이션의 적용 대상 설정 (field method type)
 
 롬복
-01. @NoArgsConstructor: 		    기본생성자 자동 생성 어노테이션
-02. @AllArgsConstructor:			모든 필드값 포함한 생성자 자동 생성 어노테이션
-03. @RequiredArgsConstructor:	    final 필드값만 포함한 생성자 자동 생성 어노테이션
-04. @Getter:					    getter 메소드 자동 생성
-05. @Setter:					    setter 메소드 자동생성
-06. @ToString: 				        toString 메소드 자동생성
-07. @Builder: 				        빌더패턴방식의 객체 생성 메소드 자동 생성
+01. @NoArgsConstructor          :   기본생성자 자동 생성 어노테이션
+02. @AllArgsConstructor         :   모든 필드값 포함한 생성자 자동 생성 어노테이션
+03. @RequiredArgsConstructor    :   inal 필드값만 포함한 생성자 자동 생성 어노테이션
+04. @Getter                     :   getter 메소드 자동 생성
+05. @Setter                     :   setter 메소드 자동생성
+06. @ToString                   :   toString 메소드 자동생성
+07. @Builder                    :   빌더패턴방식의 객체 생성 메소드 자동 생성
 
 스프링
-01. @SpringBootApplication: 		톰캣 자동 구성 , 컴포넌트 스캔 및 설정 기능을 포함한 시작점 지정
-02. @Component: 				    스프링 빈Bean 객체로 등록			
-03. @Autowired: 				    스프링 빈Bean 객체에 의존성 자동 주입
+01. @SpringBootApplication      :   톰캣 자동 구성 , 컴포넌트 스캔 및 설정 기능을 포함한 시작점 지정
+02. @Component                  :   스프링 빈Bean 객체로 등록			
+03. @Autowired                  :   스프링 빈Bean 객체에 의존성 자동 주입
 
 스프링 HTTP
-01. @Controller: 				    스프링 MVC 에서 HTTP 요청을 처리하는 컨트롤러를 Spring Bean 으로 등록하는 어노테이션
-02. @ResponseBody: 			        메소드의 반환값을 VIEW 가 아닌 HTTP 응답 본문에 담아 전송하는 어노테이션
-03. @RestController: 			    Restful 웹 서비스를 제공하는 컨트롤러를 스프링 빈으로 등록하고 반환값을 응답 본문에 데이터로 전송하는 어노테이션
-04. @RequestMapping: 			    클래스 또는 매소드 레벨에서 요청 URI 와 HTTP 요청 방식을 특정 컨트롤러/메소드에 매핑하는 어노테이션
-05. @GetMapping:				    HTTP GET 요청을 특정 메소드에 매핑하는 어노테이션
-06. @PostMapping: 			        HTTP POST 요청을 특정 메소드에 매핑하는 어노테이션
-07. @PutMapping: 				    HTTP PUT 요청을 특정 메소드에 매핑하는 어노테이션
-08. @DeleteMapping: 			    HTTP DELETE 요청을 특정 메소드에 매핑하는 어노테이션
-09. @RequestParam: 			        쿼리스트링 또는 폼 파라미터 값을 추출하여 매개변수에 저장하는 어노테이션
-10. @ModelAttribute: 			    HTTP 요청 파라미터를 java 객체(DTO)의 필드에 자동으로 매핑하여 저장하는 어노테이션
-11. @PathVariable:			        URL 경로에 포함된 변수 값을 추출하여 메소드 매개변수에 저장하는 어노테이션
-12. @RequestBody: 			        HTTP 요청 Body 에 담긴 JSON XML 등 데이터를 java 객체(DTO)로 변환하여 저장하는 어노테이션
+01. @Controller                 :   스프링 MVC 에서 HTTP 요청을 처리하는 컨트롤러를 Spring Bean 으로 등록하는 어노테이션
+02. @ResponseBody               :   메소드의 반환값을 VIEW 가 아닌 HTTP 응답 본문에 담아 전송하는 어노테이션
+03. @RestController             :   Restful 웹 서비스를 제공하는 컨트롤러를 스프링 빈으로 등록하고 반환값을 응답 본문에 데이터로 전송하는 어노테이션
+04. @RequestMapping             :   클래스 또는 매소드 레벨에서 요청 URI 와 HTTP 요청 방식을 특정 컨트롤러/메소드에 매핑하는 어노테이션
+05. @GetMapping                 :   HTTP GET 요청을 특정 메소드에 매핑하는 어노테이션
+06. @PostMapping                :   HTTP POST 요청을 특정 메소드에 매핑하는 어노테이션
+07. @PutMapping                 :   HTTP PUT 요청을 특정 메소드에 매핑하는 어노테이션
+08. @DeleteMapping              :   HTTP DELETE 요청을 특정 메소드에 매핑하는 어노테이션
+09. @RequestParam               :   쿼리스트링 또는 폼 파라미터 값을 추출하여 매개변수에 저장하는 어노테이션
+10. @ModelAttribute             :   HTTP 요청 파라미터를 java 객체(DTO)의 필드에 자동으로 매핑하여 저장하는 어노테이션
+11. @PathVariable               :   URL 경로에 포함된 변수 값을 추출하여 메소드 매개변수에 저장하는 어노테이션
+12. @RequestBody                :   HTTP 요청 Body 에 담긴 JSON XML 등 데이터를 java 객체(DTO)로 변환하여 저장하는 어노테이션
+
+스프링 MVC
+01. @Controller                 :   Spring MVC 컨트롤러 등록 (프론트엔드파일 반환용)
+02. @RestController             :   RESTful 웹 서비스 컨트롤러 등록 (@Controller + @ResponseBody)
+03. @Service                    :   비즈니스 로직을 수행하는 서비스 계층 스프링 빈(객체) 등록
+04. @Repository                 :   데이터베이스 접근을 담당하는 영속성 계층 스프링 빈(객체) 등록 ( JpaRepository 인터페이스를 상속하여 구현해야 함)
+
+스프링 JPA
+01. @Entity                     :   데이터베이스 테이블과 매핑될 JPA 관리 객체 지정
+02. @Table                      :   엔티티와 매핑할 데이터베이스 테이블 이름 및 세부 설정 지정
+03. @Id                         :   데이터베이스 테이블의 기본 키(Primary Key) 지정
+04. @Transactional              :   트랜잭션 종료 시 엔티티 변경 감지를 통해 UPDATE 쿼리를 자동 실행 및 커밋 제어
+
+
+
+
 
 
 
@@ -48,4 +64,16 @@
 
 
 
-
+Service 비지니스 로직을 수행하는 서비스 계층 스프링 빈 등록 비지니스 로직을 수행하는 서비스 계층 스프링 빈 등록 비지니스로직을 수행하는 서비스계층 스프링 빈 등록
+Repository 데이터베이스 접근을 담당하는 영속성 계층 스프링 빈 등록 데이터베이스 점근을 담당하는 영속성계층 스프링 빈 등록
+Entity 데이터베이스 테이블과 매핑할 JPA 관리 객체 지정 데이터베이스 테이블과 매핑할 JPA 관리 객체 지정 데이터베이스 테이블과 매핑할 JPA 관리 객체 지정
+Table 엔티티와 매핑할 데이터베이스 테이블 이름 및 세부설정 지정 엔티티와 매핑할 데이터베이스 테이블 이름 및 세부설정 지정 엔티티와 매핑할 데이터베이스 테이블 이름 및 세부설정 지정
+엔티티와 매핑할 데이터베이스 테이블 이읆 및 세부설정 지정 엔티티와
+데이터베이스 테이블과 매핑할 JPA 관리 객체 지정
+데이터베이스 접근을 담당하는 영속성계층 스프링 빈 등록
+비지니스 로직을 수행하는 서비스 계층 스프링 빈 등록
+데이터베이스 접근을 담당하는 영속성계층 스프린 빈 등록 데이터베이스 테이블과 매핑할 JPA 관리 객체 지정
+엔티티와 매핑할 데이터베이스 테이블 이름 및 세부설정 지정
+Id 데이터베이스 테이블의 기본키 지정 데이터베이스 테이블의 기본키 지정
+Transactional 트랜잭션 종료시 엔티티 변경 감지를 통해 UPDATE 쿼리를 자동 실행 및 커밋 제어
+트랜잭션 종료시 엔티티 변경 감지를 통해 UPdate 쿼리를 자동 실행 및 커밋 제어
