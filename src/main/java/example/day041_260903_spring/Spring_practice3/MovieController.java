@@ -18,6 +18,7 @@ public class MovieController {
 
     private final MovieService movieService;
 
+    
 //  [1] 등록
     @PostMapping("/movie")
     public boolean movieSave(@RequestBody MovieDto movieDto){
