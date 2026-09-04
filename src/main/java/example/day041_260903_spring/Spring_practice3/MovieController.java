@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
@@ -18,7 +19,7 @@ public class MovieController {
 
     private final MovieService movieService;
 
-    
+
 //  [1] 등록
     @PostMapping("/movie")
     public boolean movieSave(@RequestBody MovieDto movieDto){
@@ -41,7 +42,7 @@ public class MovieController {
 
 //  [3] 개별조회
     @GetMapping("/movie/detail")
-    public MovieDto movieFindDetail(int movieid){
+    public MovieDto movieFindDetail(@RequestParam(name = "movieid") int movieid){
 
         MovieDto movieDto = movieService.movieFindDetail(movieid);
 
