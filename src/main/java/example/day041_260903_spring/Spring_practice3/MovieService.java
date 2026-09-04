@@ -65,13 +65,14 @@ public class MovieService {
         if(optional.isPresent()){
             MovieEntity movieEntity = optional.get();
         //  MovieDto movieDto = new MovieDto();  ==>  MovieDto.from()는 스태틱이기 때문에 new 생략가능.
-            MovieDto movieDto = MovieDto.from(movieEntity);
-            movieDto.setTitle(movieEntity.getTitle());
-            movieDto.setDirector(movieEntity.getDirector());
-            movieDto.setReleasedate(movieEntity.getReleasedate());
-            movieDto.setRating(movieEntity.getRating());
-            movieDto.setCreateDate(movieEntity.getCreateDate());
-            movieDto.setUpdateDate(movieEntity.getUpdateDate());
+            MovieDto movieDto = MovieDto.from(movieEntity);  
+        //  from 함수가 아래작업 다 함.
+        //  movieDto.setTitle(movieEntity.getTitle());
+        //  movieDto.setDirector(movieEntity.getDirector());
+        //  movieDto.setReleasedate(movieEntity.getReleasedate());
+        //  movieDto.setRating(movieEntity.getRating());
+        //  movieDto.setCreateDate(movieEntity.getCreateDate());
+        //  movieDto.setUpdateDate(movieEntity.getUpdateDate());
             return movieDto;
         }
         return null;
