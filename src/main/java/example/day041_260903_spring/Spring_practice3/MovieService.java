@@ -27,11 +27,20 @@ public class MovieService {
 
         MovieEntity movieEntity = movieDto.toEntity();
 
-        if(movieEntity.getMovieid() >= 1){
-            movieRepository.save(movieEntity);
-            return true;
-        }
+        MovieEntity savedEntity = movieRepository.save(movieEntity);
+
+        if(savedEntity.getMovieid() >= 1){ return true; }
         return false;
+
+    //  오류 발생
+    //
+    //  MovieEntity movieEntity = movieDto.toEntity();
+    //
+    //  if(movieEntity.getMovieid() >= 1){
+    //      movieRepository.save(movieEntity);
+    //      return true;
+    //  }
+    //  return false;
     }
 
 
@@ -55,7 +64,8 @@ public class MovieService {
         
         if(optional.isPresent()){
             MovieEntity movieEntity = optional.get();
-            MovieDto movieDto = new MovieDto();
+        //  MovieDto movieDto = new MovieDto();  ==>  MovieDto.from()는 스태틱이기 때문에 new 생략가능.
+            MovieDto movieDto = MovieDto.from(movieEntity);
             movieDto.setTitle(movieEntity.getTitle());
             movieDto.setDirector(movieEntity.getDirector());
             movieDto.setReleasedate(movieEntity.getReleasedate());

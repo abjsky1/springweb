@@ -58,7 +58,7 @@
 @Table(name = "테이블명")        // 매핑할 테이블명 지정 , 생략시 클래스명으로 지정 
 @Id                             // Primary Key 지정
 @GeneratedValue( strategy = GenerationType.IDENTITY )   // auto_increment 지원
-@Transactional                  // 여러개의 SQL을 하나의 (논리)단위로 묶을 때 사용, JPA 수정에서는 필수 사용.
+@Transactional                  // 여러개의 SQL을 하나의 (논리)단위로 묶을 때 사용, JPA 수정에서는 필수 사용. 자바의 set함수를 db에 적용시켜줌.
 
 
 @Column( name = "필드명" ) : 필드명 생략시 자동으로 멤버변수명으로 지정
