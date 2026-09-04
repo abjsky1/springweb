@@ -75,6 +75,11 @@
 @EntityListeners( AuditingEntityListener.class )  // 엔티티의 생명주기(Lifecycle: Persist, Update 등) 이벤트를 감지하는 리스너(구현체) 등록.
 @EnableJpaAuditing  // Spring Boot 애플리케이션에 JPA Auditing(등록/수정) 감시 기능을 활성화하는 트리거 어노테이션. AppStart 클래스 상단에 선언.
 
+@ToString.Exclude  :  toString 사용금지
+
+
+
+
 
 
 Service 비지니스 로직을 수행하는 서비스 계층 스프링 빈 등록 비지니스 로직을 수행하는 서비스 계층 스프링 빈 등록 비지니스로직을 수행하는 서비스계층 스프링 빈 등록
