@@ -23,16 +23,16 @@ public class MovieEntity extends BaseTime{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer movieid;
 
-    @Column(nullable = true , length = 100 , unique = true , updatable = false)
+    @Column(nullable = false , length = 100 , unique = true , updatable = false)
     private String title;
 
-    @Column(nullable = true , length = 100 , updatable = false)
+    @Column(nullable = false , length = 100 , updatable = false)
     private String director;
 
-    @Column(nullable = true , length = 100 , updatable = false)
+    @Column(nullable = false , length = 100 , updatable = false)
     private String releasedate;
 
-    @Column(nullable = true)
+    @Column(nullable = false)
     private Double rating;
 
     

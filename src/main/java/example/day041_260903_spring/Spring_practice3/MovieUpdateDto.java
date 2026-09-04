@@ -16,6 +16,9 @@ public class MovieUpdateDto {
     private Integer movieid;
     private Double rating;
 
+    private LocalDateTime createDate;
+    private LocalDateTime updateDate;
+
     public MovieEntity toEntity(){
 
         return MovieEntity.builder()
