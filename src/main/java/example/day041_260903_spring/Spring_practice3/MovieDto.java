@@ -42,6 +42,7 @@ public class MovieDto {
                        .rating(movieEntity.getRating())
                        .createDate(movieEntity.getCreateDate())
                        .updateDate(movieEntity.getUpdateDate())
+    //                 .updateDate(movieEntity.getUpdateDate().format(포멧설정))  // : Dto에서 format 으로 정의하여 개선 가능
                        .build();
     }
 
