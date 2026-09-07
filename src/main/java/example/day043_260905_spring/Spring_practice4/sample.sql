@@ -1,0 +1,3 @@
+DROP DATABASE IF EXISTS mydb260907_practice4;
+CREATE DATABASE mydb260907_practice4;
+USE mydb260907_practice4;
