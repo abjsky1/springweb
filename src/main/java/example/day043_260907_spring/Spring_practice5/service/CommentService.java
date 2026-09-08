@@ -53,7 +53,7 @@ public class CommentService {
             
             CommentEntity commentEntity = optional.get();
 
-            if(commentEntity.getCommentId()==commentId && commentEntity.getPassword().equals(password)){
+            if(commentEntity.getCommentId().equals(commentId) && commentEntity.getPassword().equals(password)){
 
                 commentRepository.delete(commentEntity);
 

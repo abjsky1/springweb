@@ -5,14 +5,11 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PostMapping;
 
 import example.day043_260907_spring.Spring_practice5.model.dto.BoardDto;
 import example.day043_260907_spring.Spring_practice5.model.dto.CommentDto;
 import example.day043_260907_spring.Spring_practice5.model.entity.BoardEntity;
-import example.day043_260907_spring.Spring_practice5.model.entity.CommentEntity;
 import example.day043_260907_spring.Spring_practice5.model.repository.BoardRepository;
-import example.day043_260907_spring.Spring_practice5.model.repository.CommentRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
@@ -22,7 +19,6 @@ import lombok.RequiredArgsConstructor;
 public class BoardService {
 
     private final BoardRepository boardRepository;
-    private final CommentRepository commentRepository;
 
 
     //  [게시글 등록 기능]
@@ -60,7 +56,7 @@ public class BoardService {
                 CommentDto commentDto = CommentDto.from(comment);
 
         // 변환한 거 Dto 에 만들어져있는 List 에 집어넣기
-                boardDto.getCommentDtos().add(commentDto);
+                boardDto.getComments().add(commentDto);
 
             });
         

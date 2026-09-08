@@ -1,20 +1,22 @@
-package example.day043_260907_spring.Spring_practice5.model.dto;
+package example.day044_260908_spring.spring_practice5_test.model.dto;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
-import example.day043_260907_spring.Spring_practice5.model.entity.CommentEntity;
+import org.springframework.data.annotation.LastModifiedDate;
+
+import example.day044_260908_spring.spring_practice5_test.model.entity.CommentEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Data 
 @AllArgsConstructor 
 @NoArgsConstructor 
-@Data 
 @Builder 
 public class CommentDto {
-
-    private Integer boardId;
 
     private Integer id;
 
@@ -24,14 +26,14 @@ public class CommentDto {
 
     private String content;
 
+    private Integer boardId;
+
     private LocalDateTime createdAt;
-    
+
     private LocalDateTime updatedAt;
 
     public CommentEntity toEntity(){
-
         return CommentEntity.builder()
-            .commentId(this.id)
             .author(this.author)
             .password(this.password)
             .content(this.content)
@@ -39,17 +41,14 @@ public class CommentDto {
     }
 
     public static CommentDto from(CommentEntity commentEntity){
-
         return CommentDto.builder()
+            .id(commentEntity.getCommentId())
             .author(commentEntity.getAuthor())
             .password(commentEntity.getPassword())
             .content(commentEntity.getContent())
-            .id(commentEntity.getCommentId())
-            .boardId(commentEntity.getBoardEntity().getBoardId())
             .createdAt(commentEntity.getCreatedAt())
             .updatedAt(commentEntity.getUpdatedAt())
             .build();
     }
-
 
 }

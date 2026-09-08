@@ -1,21 +1,25 @@
-package example.day043_260907_spring.Spring_practice5.model.dto;
+package example.day044_260908_spring.spring_practice5_test.model.dto;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import example.day043_260907_spring.Spring_practice5.model.entity.BoardEntity;
-import example.day043_260907_spring.Spring_practice5.model.entity.CommentEntity;
+import example.day044_260908_spring.spring_practice5_test.model.entity.BoardEntity;
 import jakarta.persistence.Column;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
+@Data 
 @AllArgsConstructor 
 @NoArgsConstructor 
-@Data 
-@Builder 
+@Builder
 public class BoardDto {
 
     private Integer id;
@@ -26,24 +30,22 @@ public class BoardDto {
 
     private String content;
 
-    @Builder.Default
-    private List<CommentDto> comments = new ArrayList<>();
-
     private LocalDateTime createdAt;
 
     private LocalDateTime updatedAt;
 
-    public BoardEntity toEntity(){
+    @Builder.Default
+    private List<CommentDto> comments = new ArrayList<>();
 
+    public BoardEntity toEntity(){
         return BoardEntity.builder()
             .author(this.author)
             .password(this.password)
-            .content(content)
+            .content(this.content)
             .build();
     }
 
     public static BoardDto from(BoardEntity boardEntity){
-
         return BoardDto.builder()
             .id(boardEntity.getBoardId())
             .author(boardEntity.getAuthor())
@@ -53,7 +55,5 @@ public class BoardDto {
             .updatedAt(boardEntity.getUpdatedAt())
             .build();
     }
-
-
 
 }
