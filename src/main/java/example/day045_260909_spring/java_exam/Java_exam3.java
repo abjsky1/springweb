@@ -1,9 +1,9 @@
-package example.day045_260909_spring.spring_exam;
+package example.day045_260909_spring.java_exam;
 
 import java.util.Comparator;
 import java.util.List;
 
-public class Spring_exam3 {
+public class Java_exam3 {
     public static void main(String[] args) {
         
     //  [1] 리스트 생성

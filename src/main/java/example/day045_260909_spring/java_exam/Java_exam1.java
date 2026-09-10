@@ -1,4 +1,4 @@
-package example.day045_260909_spring.spring_exam;
+package example.day045_260909_spring.java_exam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import lombok.RequiredArgsConstructor;
 
 
-public class Spring_exam1 {
+public class Java_exam1 {
     public static void main(String[] args) {
         
     //  서로 다른 클래스의 메소드를 호출하는 방법

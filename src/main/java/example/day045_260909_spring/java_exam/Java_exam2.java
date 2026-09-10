@@ -1,4 +1,4 @@
-package example.day045_260909_spring.spring_exam;
+package example.day045_260909_spring.java_exam;
 
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -8,7 +8,7 @@ import java.util.function.Supplier;
 // 추상메소드
 interface Calculator{ int plus( int x, int y ); }
 
-public class Spring_exam2 {
+public class Java_exam2 {
     public static void main(String[] args) {
         
     //  1. 구현체
@@ -58,7 +58,7 @@ public class Spring_exam2 {
     //      - Predicate< 인수타입 > , test( 인수 ) , 매개변수 O / 반환(true/false)
 
             Predicate< Integer > predicate = ( x ) -> { return x % 2 == 0; };
-            
+
             boolean result6 = predicate.test(3);
 
     //  활용처 : 위 4가지 직접적인 사용이 아닌 API(다른 사람이 만든 클래스/메소드) 에서 활용 가능

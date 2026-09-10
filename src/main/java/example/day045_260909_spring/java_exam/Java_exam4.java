@@ -1,10 +1,10 @@
-package example.day045_260909_spring.spring_exam;
+package example.day045_260909_spring.java_exam;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
-public class Spring_exam4 {
+public class Java_exam4 {
     public static void main(String[] args) {
         
     //  [*] 메소드 레퍼런스 API : 람다식이 단순히 기존메소드만 호출하는 경우 간결하게 표현하는 방법
@@ -46,31 +46,31 @@ public class Spring_exam4 {
 
     //  3. 이름들의 글자수 출력하세요.
 
-    //      전통방식
+    //      3-1. 전통방식
 
             for(int i = 0 ; i <= names.size()-1 ; i++){ System.out.println(names.get(i).length()); }
 
-    //      스트림 방식
+    //      3-2. 스트림 방식
     
             names.stream().map( ( name ) -> { return name.length(); } ).forEach( ( result ) -> { System.out.println( result ); } );
 
-    //      메소드 레퍼런스 방식 ( 클래스명::함수명 )
+    //      3-3. 메소드 레퍼런스 방식 ( 클래스명::함수명 )
 
             names.stream().map( String::length ).forEach( System.out::println );
 
 
     //  4. names 리스트 안에 문자열/이름들을 각각 대입하여 Student 객체 만드시오.
 
-    //      전통방식
+    //      4-1. 전통방식
     
             List<Student> list1 = new ArrayList<>();
             for(int i = 0 ; i <= names.size()-1 ; i++){ Student student = new Student( names.get(i) ); list1.add(student); }
             
-    //      스트림 API
+    //      4-2. 스트림 API
             
             List<Student> list2 = names.stream().map( (name) -> { return new Student(name); } ).toList();
 
-    //      메소드참조(레퍼런스)
+    //      4-3. 메소드참조(레퍼런스)
 
             List<Student> list3 = names.stream().map( Student::new ).toList();
 
@@ -92,9 +92,10 @@ public class Spring_exam4 {
 
         2.
         List<MemberDto> list2 = entityList.stream().map( MemberDto::from ).toList();
-        
+
     */
     
+        
     // 
     // 
     // 
