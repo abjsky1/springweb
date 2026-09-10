@@ -1,5 +1,7 @@
 package example.day045_260909_spring.spring_practice5_upgrade.model.dto;
 
+import java.time.LocalDateTime;
+
 import example.day045_260909_spring.spring_practice5_upgrade.model.entity.CommentEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,6 +24,10 @@ public class CommentDto {
 
     private String content;
 
+    private LocalDateTime createdAt;
+
+    private LocalDateTime updatedAt;
+
     public CommentEntity toEntity(){
         return CommentEntity.builder()
             .author(author)
@@ -39,6 +45,8 @@ public class CommentDto {
             .password(commentEntity.getPassword())
             .content(commentEntity.getContent())
             .boardId(commentEntity.getBoardEntity().getId())
+            .createdAt(commentEntity.getCreatedAt())
+            .updatedAt(commentEntity.getUpdatedAt())
             .build();
 
     }

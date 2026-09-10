@@ -6,7 +6,9 @@ import org.springframework.stereotype.Service;
 
 
 import example.day045_260909_spring.spring_practice5_upgrade.model.dto.CommentDto;
+import example.day045_260909_spring.spring_practice5_upgrade.model.entity.BoardEntity;
 import example.day045_260909_spring.spring_practice5_upgrade.model.entity.CommentEntity;
+import example.day045_260909_spring.spring_practice5_upgrade.model.repository.BoardRepository;
 import example.day045_260909_spring.spring_practice5_upgrade.model.repository.CommentRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -17,19 +19,27 @@ import lombok.RequiredArgsConstructor;
 public class CommentService {
 
     private final CommentRepository commentRepository;
-    
+    private final BoardRepository boardRepository;
 
 //  댓글 등록 기능
     public boolean save(CommentDto commentDto){
-        CommentEntity commentEntity1 = commentDto.toEntity();
 
-        Optional<CommentEntity> optional = commentRepository.findById(commentDto.getId());
-        if(optional.isPresent()){
-        
-            commentEntity1.setBoardEntity(optional.get().getBoardEntity());
-            if(commentRepository.save(commentEntity1).getCommentId() >= 1){return true;}
+        CommentEntity commentEntity = commentDto.toEntity();
+
+        Optional<BoardEntity> optional = boardRepository.findById(commentDto.getBoardId());
+
+        if (optional.isPresent()) {
+            
+            BoardEntity boardEntity = optional.get();
+
+            commentEntity.setBoardEntity(boardEntity);
 
         }
+
+        CommentEntity savedCommentEntity = commentRepository.save(commentEntity);
+
+        if(savedCommentEntity.getCommentId() >= 1){return true;}
+
         return false;
         
     //  Optional<CommentEntity> optional = commentRepository.findById(commentDto.getId());

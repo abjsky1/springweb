@@ -31,7 +31,7 @@ public class BoardController {
 
 //  게시글 목록 조회 기능
     @GetMapping ("")
-    public List<Map<BoardDto,Object>> findAll(){
+    public List<Map<String,Object>> findAll(){
         return boardService.findAll();
     }
 
@@ -44,7 +44,7 @@ public class BoardController {
 
 // +게시물 목록 개별 조회 기능
     @GetMapping ("/detail")
-    public Map<BoardDto,Object> findDetail(@RequestParam(name = "id") Integer id){
+    public Map<String,Object> findDetail(@RequestParam(name = "id") Integer id){
         return boardService.findDetail(id);
     }
 }

@@ -27,7 +27,7 @@ public class CommentController {
 
 //  댓글 삭제 기능
     @DeleteMapping ("")
-    public boolean delete(@RequestParam (name = "commentId") Integer commentId , String password){
+    public boolean delete(@RequestParam (name = "commentId") Integer commentId ,@RequestParam (name = "password") String password){
         return commentService.delete(commentId, password);
     }
 
