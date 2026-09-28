@@ -38,9 +38,20 @@ dependencies {
 
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 
+//	5. HTTP 통신 - Spring Reactive Web
+	implementation 'org.springframework.boot:spring-boot-starter-webflux'
+
+//	6. XML 파싱 - Jackson Dataformat XML
+	implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.22.2'
+
+// 	7. CSV 파싱 - OpenCSV
+	implementation 'com.opencsv:opencsv:5.12.0'
+
+
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
 }
 
 tasks.named('test') {

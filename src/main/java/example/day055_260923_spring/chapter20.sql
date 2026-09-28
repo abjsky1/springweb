@@ -1,0 +1,3 @@
+DROP DATABASE IF EXISTS chapter20;
+CREATE DATABASE chapter20;
+USE chapter20;
