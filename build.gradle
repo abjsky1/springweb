@@ -47,6 +47,15 @@ dependencies {
 // 	7. CSV 파싱 - OpenCSV
 	implementation 'com.opencsv:opencsv:5.12.0'
 
+//	8. build.gradle 에서 비크립트 관련 라이브러리 설치
+	implementation 'org.springframework.security:spring-security-crypto'
+
+
+
+
+
+
+
 
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
