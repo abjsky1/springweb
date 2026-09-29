@@ -3,6 +3,7 @@ package example.day036_260826_spring.controller;
 import java.util.ArrayList;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import example.day036_260826_spring.model.dao.BoardDao;
@@ -57,7 +58,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 */
 
-@RestController
+@RequestMapping("/board")
+@RestController 
 public class BoardController {
 
 //  private BoardController(){}
@@ -70,7 +72,7 @@ public class BoardController {
 
 //      1. PostMapping("/URL") : HTTP 메소드 중에 POST 메소드 매핑/연결/대응 어노테이션
 
-        @PostMapping("/board/save")
+        @PostMapping("/save")
         public boolean save( BoardDto boardDto ){
 
         //  view에게 전달받은 매개변수을 dao에게전달
@@ -86,7 +88,7 @@ public class BoardController {
 
 //  [2] 전체조회
 
-        @GetMapping("/board/findall")
+        @GetMapping("/findall")
         public ArrayList<BoardDto> findAll(){
 
             ArrayList<BoardDto> result = bd.findAll();
@@ -97,14 +99,14 @@ public class BoardController {
 
 
 // [3] 수정 Controller 
-    @PutMapping("/board/update")
+    @PutMapping("/update")
     public boolean update( BoardDto boardDto ){
         return bd.update( boardDto );
     }
 
 
 // [4] 개별삭제 Controller
-    @DeleteMapping("/board/delete")
+    @DeleteMapping("/delete")
     public boolean delete( int no ){
         return bd.delete( no );
     }

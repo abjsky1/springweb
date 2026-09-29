@@ -78,6 +78,8 @@ public class MemberController {
         return memberservice.signup( memberDto );
     }
 
+    private final JwtUtil jwtUtil;
+
 //  [2] 로그인 + 세션 ( 인증 성공시 성공한 회원정보 저장 / FK 용도로 사용 )
     @PostMapping ("/login")
     public MemberDto login( @RequestBody MemberDto memberDto , HttpServletResponse response ){
@@ -90,13 +92,18 @@ public class MemberController {
     //  쿠키는 세션과 다르게 클라이언트에 저장되므로 회원번호만 저장 (민감한 정보는 쿠키에 넣지 말 것)
 
     //  ResponseCookie cookie = ResponseCookie.from("쿠키명" , "쿠키값").build();
-    //  정수 -> 문자 타입변환  ==>>  정수+""  ,  String.valueOf(정수) 
+    //  result.getMno()+""  :  정수 -> 문자 타입변환  ==>>  정수+""  ,  String.valueOf(정수) 
     //  .path("/") 쿠키를 사용할 경로
     //  .maxAge( Duration.ofXXX(1) ) : 쿠키의 유효기간 , 1일
     //  .httpOnly(true) : JS 이용한 탈취 방지 , XSS 공격 
     //  .secure(false) : HTTPS 에서만 사용 , 개발단계 : false , 배포단계 : true
     //  .sameSite("Lax") : CSRF 공격 방어
-        ResponseCookie cookie = ResponseCookie.from("login_member", result.getMno()+"")
+
+    //  쿠키값을 jwt 안전하게 변경
+    //  result.getMno()+""  ==>> 
+        String jwt = jwtUtil.createToken( result.getMno()) ; 
+
+        ResponseCookie cookie = ResponseCookie.from("login_member", jwt)
                                               .path("/")
                                               .maxAge(Duration.ofDays(1))
                                               .httpOnly(true)
@@ -114,15 +121,19 @@ public class MemberController {
 
 //  [3] 내 정보 조회 + 쿠키 ( 이미 로그인된 회원이 내정보 요청 )
     @GetMapping ("/me")
-    public MemberDto getMyInfo( @CookieValue (value = "login_member") String loninMno ){
+    public MemberDto getMyInfo( @CookieValue ( value = "login_member" , required = false ) String token ){
     //  요청한 브라우저의 쿠키 가져오기. 
 
     //  만약 loginMno 가 없다면 비로그인
-        if(loninMno == null){return null;}
+        if(token == null){return null;}
+
+    //  쿠키에 저장된 token 이용하여 회원번호 찾기
+        Long loginMno = jwtUtil.getMnoFromToken(token);
+
 
     //  로그인 중이면 서비스에게 회원정보 요청
     //  참고 : 문자 -> 정수  변환 방법 : 래퍼클래스명.parse타입 (문자)
-        return memberservice.getMyInfo( Long.parseLong(loninMno) );
+        return memberservice.getMyInfo( loginMno );
 
     }
 

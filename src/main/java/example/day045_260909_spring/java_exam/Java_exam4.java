@@ -63,16 +63,16 @@ public class Java_exam4 {
 
     //      4-1. 전통방식
     
-            List<Student> list1 = new ArrayList<>();
-            for(int i = 0 ; i <= names.size()-1 ; i++){ Student student = new Student( names.get(i) ); list1.add(student); }
+            List<Student1> list1 = new ArrayList<>();
+            for(int i = 0 ; i <= names.size()-1 ; i++){ Student1 student = new Student1( names.get(i) ); list1.add(student); }
             
     //      4-2. 스트림 API
             
-            List<Student> list2 = names.stream().map( (name) -> { return new Student(name); } ).toList();
+            List<Student1> list2 = names.stream().map( (name) -> { return new Student1(name); } ).toList();
 
     //      4-3. 메소드참조(레퍼런스)
 
-            List<Student> list3 = names.stream().map( Student::new ).toList();
+            List<Student1> list3 = names.stream().map( Student1::new ).toList();
 
 
     /*
@@ -107,9 +107,9 @@ public class Java_exam4 {
 }
 
 // Dto 역할
-class Student{
+class Student1{
 
     private String name;
 
-    public Student( String name ){ this.name = name; }
+    public Student1( String name ){ this.name = name; }
 }
