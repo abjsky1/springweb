@@ -80,6 +80,8 @@ public class MemberController {
 
     private final JwtUtil jwtUtil;
 
+    private final RedisTokenSerivce redisTokenSerivce;
+
 //  [2] 로그인 + 세션 ( 인증 성공시 성공한 회원정보 저장 / FK 용도로 사용 )
     @PostMapping ("/login")
     public MemberDto login( @RequestBody MemberDto memberDto , HttpServletResponse response ){
@@ -101,18 +103,33 @@ public class MemberController {
 
     //  쿠키값을 jwt 안전하게 변경
     //  result.getMno()+""  ==>> 
-        String jwt = jwtUtil.createToken( result.getMno()) ; 
 
-        ResponseCookie cookie = ResponseCookie.from("login_member", jwt)
+    //  토큰(token) **2개** 발급 요청 
+        String accessToken = jwtUtil.createAccessToken( result.getMno()) ; 
+        String refreshToken = jwtUtil.createRefreshToken( result.getMno()) ; 
+
+        redisTokenSerivce.setRefreshToken(result.getMno(), refreshToken);
+
+    //  로그인 성공시 쿠키 2개 생성 발금  ,  쿠키 만료기간 == 토큰 만료기간 동일 권장
+        ResponseCookie cookie1 = ResponseCookie.from("accessToken", accessToken)
                                               .path("/")
-                                              .maxAge(Duration.ofDays(1))
+                                              .maxAge(Duration.ofMinutes(30))
                                               .httpOnly(true)
                                               .secure(false)
                                               .sameSite("Lax")
                                               .build();
     
+        ResponseCookie cookie2 = ResponseCookie.from("refreshToken", refreshToken)
+                                              .path("/")
+                                              .maxAge(Duration.ofDays(7))
+                                              .httpOnly(true)
+                                              .secure(false)
+                                              .sameSite("Lax")
+                                              .build();
+
     //  응답 헤더에 쿠키 등록 , response.setHeader
-        response.setHeader( HttpHeaders.SET_COOKIE , cookie.toString() );
+        response.addHeader( HttpHeaders.SET_COOKIE , cookie1.toString() );
+        response.addHeader( HttpHeaders.SET_COOKIE , cookie2.toString() );
         
         return result;
 
@@ -121,7 +138,7 @@ public class MemberController {
 
 //  [3] 내 정보 조회 + 쿠키 ( 이미 로그인된 회원이 내정보 요청 )
     @GetMapping ("/me")
-    public MemberDto getMyInfo( @CookieValue ( value = "login_member" , required = false ) String token ){
+    public MemberDto getMyInfo( @CookieValue ( value = "accessToken" , required = false ) String token ){
     //  요청한 브라우저의 쿠키 가져오기. 
 
     //  만약 loginMno 가 없다면 비로그인
@@ -140,18 +157,37 @@ public class MemberController {
 
 //  [4] 로그아웃 + 쿠키 ( 초기화 )
     @PostMapping ("/logout")
-    public boolean logout( HttpServletResponse response ){
+    public boolean logout( @CookieValue(value = "accessToken" , required = false) String accessToken , HttpServletResponse response ){
 
+    //  만약에 accessToken 존재하면
+        if( accessToken != null ){
+            Long mno = jwtUtil.getMnoFromToken(accessToken);
+
+        //  회원번호가 조회 후에 레디스 안에 refresh 토큰 삭제하기
+            redisTokenSerivce.deleteRefreshToken(mno);
+
+        }
+
+    //  쿠키 2개 삭제
     //  삭제할 쿠키명과 동일한 이름으로 maxAge(0) 하여 재발급
-        ResponseCookie cookie = ResponseCookie.from("login_member", "")
+        ResponseCookie cookie1 = ResponseCookie.from("accessToken", "")
                                               .path("/")
                                               .maxAge(0)
                                               .httpOnly(false)
                                               .secure(false)
                                               .build();
 
+        ResponseCookie cookie2 = ResponseCookie.from("refreshToken", "")
+                                              .path("/")
+                                              .maxAge(0)
+                                              .httpOnly(false)
+                                              .secure(false)
+                                              .build();
+                                              
+
     //  응답 헤더에 쿠키 등록 , response.setHeader
-        response.setHeader( HttpHeaders.SET_COOKIE , cookie.toString() );
+        response.addHeader( HttpHeaders.SET_COOKIE , cookie1.toString() );
+        response.addHeader( HttpHeaders.SET_COOKIE , cookie2.toString() );
         
         return true;
 

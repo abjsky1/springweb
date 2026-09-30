@@ -66,7 +66,7 @@ public class RedisController {
     private final ObjectMapper objectMapper = new ObjectMapper();  // 직렬화
 
     @PostMapping ("/member")
-    public boolean save( @RequestBody MemberDto memberDto) throws JsonProcessingException{
+    public boolean save( @RequestBody MemberDto memberDto ) throws JsonProcessingException{
     
     //  1. 중복 없는 key 구성 ( ex: 도메인명 : 식별키 )
         String key = "member:"+memberDto.getMno();  // ex)  member:3
@@ -82,7 +82,7 @@ public class RedisController {
 
     }
 
-    
+
 //  전체조회
     @GetMapping ("/member")
     public List<MemberDto> findAll( ) throws JsonMappingException, JsonProcessingException{
