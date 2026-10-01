@@ -16,6 +16,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import reactor.netty.http.server.HttpServerResponse;
 
 @RestController 
 @RequestMapping ("/api/member")
@@ -103,7 +104,8 @@ public class MemberController {
 
     //  쿠키값을 jwt 안전하게 변경
     //  result.getMno()+""  ==>> 
-
+ 
+        System.out.println( result.getMno() );
     //  토큰(token) **2개** 발급 요청 
         String accessToken = jwtUtil.createAccessToken( result.getMno()) ; 
         String refreshToken = jwtUtil.createRefreshToken( result.getMno()) ; 
@@ -143,10 +145,10 @@ public class MemberController {
 
     //  만약 loginMno 가 없다면 비로그인
         if(token == null){return null;}
-
+        System.out.println( token );
     //  쿠키에 저장된 token 이용하여 회원번호 찾기
         Long loginMno = jwtUtil.getMnoFromToken(token);
-
+        System.out.println( loginMno );
 
     //  로그인 중이면 서비스에게 회원정보 요청
     //  참고 : 문자 -> 정수  변환 방법 : 래퍼클래스명.parse타입 (문자)
@@ -194,7 +196,59 @@ public class MemberController {
     }
 
 
+//  [5] access 토큰 만료될 때 , Refresh 검증 후 토큰 재발급
+    @PostMapping ("/reissue")
+    public MemberDto reissue( @CookieValue (value = "refreshToken" , required = false) String refreshToken , HttpServletResponse response ){
 
+    //  1. refresh 토큰 가져온다.  -  존재 여부 확인
+        if( refreshToken == null ){ return null; }
+
+    //  2. refresh 토큰 안에 검증하여 회원번호 조회
+        Long mno = jwtUtil.getMnoFromToken(refreshToken);
+
+    //  3. 레디스에 저장된 refresh 토큰 꺼내기
+        String savedRefreshToken = redisTokenSerivce.getRefreshToken(mno);
+
+    //  4. 만약 레디스에 없거나 전달받은 토큰과 다르다면 문제 발생
+        if( savedRefreshToken == null || !refreshToken.equals(savedRefreshToken) ){
+        
+        //  4-1. 다르면 토큰 삭제하여 자동 로그아웃
+            redisTokenSerivce.deleteRefreshToken(mno);
+
+        }
+    //  5. 새로운 accessToken 가 RefreshToken 재발급
+        String newAccessToken = jwtUtil.createAccessToken(mno);
+        String newRefreshToken = jwtUtil.createAccessToken(mno);
+
+    //  6. 레디스에 새로운 refresh 토큰 저장
+        redisTokenSerivce.setRefreshToken(mno, refreshToken);
+
+    //  7. 로그인 성공시 쿠키 2개 생성 발금  ,  쿠키 만료기간 == 토큰 만료기간 동일 권장
+        ResponseCookie cookie1 = ResponseCookie.from("accessToken", newAccessToken)
+                                              .path("/")
+                                              .maxAge(Duration.ofMinutes(30))
+                                              .httpOnly(true)
+                                              .secure(false)
+                                              .sameSite("Lax")
+                                              .build();
+    
+        ResponseCookie cookie2 = ResponseCookie.from("refreshToken", newRefreshToken)
+                                              .path("/")
+                                              .maxAge(Duration.ofDays(7))
+                                              .httpOnly(true)
+                                              .secure(false)
+                                              .sameSite("Lax")
+                                              .build();
+
+    //  8. 응답 헤더에 쿠키 등록 , response.setHeader
+        response.addHeader( HttpHeaders.SET_COOKIE , cookie1.toString() );
+        response.addHeader( HttpHeaders.SET_COOKIE , cookie2.toString() );
+
+    //  9. 토큰 재발급 회원정보 반환
+        return memberservice.getMyInfo(mno);
+
+
+    }
 
 
 

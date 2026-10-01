@@ -63,7 +63,7 @@ public class MemberService {
 //  [3] 내 정보 조회 (PK : 회원번호 조회)
     public MemberDto getMyInfo( Long mno ){
     //  컨트롤러에게 저회할 회원번호 받는다.
-
+    
     //  findById
         Optional<MemberEntity> optional = memberRepository.findById(mno);
 

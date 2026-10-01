@@ -112,12 +112,13 @@ public class RedisController {
 //  개별조회
     @GetMapping ("/member/find")
     public MemberDto find( @RequestParam (name = "mno") Long mno ) throws JsonMappingException, JsonProcessingException{
-    
+
     //  1. 조회할 mno 매개변수로 받는다.
     //  2. 레디스에서 특정 mno의 키 조회
     
         String findkey = "member:"+mno;
         String value = stringRedisTemplate.opsForValue().get(findkey);
+
 
         if( value == null ){ return null; }
 
