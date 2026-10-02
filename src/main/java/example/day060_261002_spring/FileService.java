@@ -57,7 +57,7 @@ public class FileService {
     //  5. 업로드
     //  .transferTo( 업로드할 file 객체 );   + 예외처리
         try{
-            multipartFile.transferTo( new File(uploadPath) );
+            multipartFile.transferTo( new File(uploadPath+fileName) );
             return fileName;
         }catch(Exception e){System.out.println(e);}
 
