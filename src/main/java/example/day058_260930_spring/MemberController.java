@@ -163,9 +163,11 @@ public class MemberController {
 
     //  만약에 accessToken 존재하면
         if( accessToken != null ){
+
             Long mno = jwtUtil.getMnoFromToken(accessToken);
 
         //  회원번호가 조회 후에 레디스 안에 refresh 토큰 삭제하기
+        
             redisTokenSerivce.deleteRefreshToken(mno);
 
         }

@@ -1,0 +1,5 @@
+day062_261007_spring 폴더에서 day063_261008_spring 까지 함께 진행.
+
+day062_261007_spring  ==>  웹소켓
+
+day063_261008_spring  ==>  SSE
