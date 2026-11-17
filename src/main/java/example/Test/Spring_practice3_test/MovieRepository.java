@@ -1,5 +1,0 @@
-package example.Test.Spring_practice3_test;
-
-public interface MovieRepository {
-
-}
