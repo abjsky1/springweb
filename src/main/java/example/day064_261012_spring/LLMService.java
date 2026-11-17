@@ -2,6 +2,7 @@ package example.day064_261012_spring;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
@@ -34,7 +35,7 @@ public class LLMService {
     private ObjectMapper objectMapper = new ObjectMapper();
 
 
-//  
+//  LLM Call
     public String LLMCall( String prompt){
 
     //  1. 프롬프트 구성
@@ -156,7 +157,84 @@ public class LLMService {
     }
 
 
+//  프롬프트 의도를 판단하여 기능 라우팅 + AI에이전트
 
+//  프롬프트 : 명령어
+
+//  LLM : AI모델
+
+//  API : AI모델을 사용하기위한 기능 REST 로 지원
+
+//  AI에이전트 : LLM + 외부도구  =>  자율 실행
+
+//  프롬프트 잘 작성하는 방법 : 자료에대한 이해도 , 질문/키워드 
+
+
+    public String chat4( String message ){
+
+    //  [처리할 방법] + [결과 형식] 포함
+        String prompt = String.format("""
+            배송 CS 로그 서비스이며, 고객의 요청을 분석하여 다음 4가지 action_type 중 하나를 선택한다.
+            JSON 형식만을 반환한다.
+            [선택 가능한 ACTION_TYPE]
+            - TRACK_DELIVERY : 배송 위치 추적, 도착 예정일, 어디쯤 왔는지 확인
+            - RETURN_REQUEST : 반품신청, 단순 변심 회수, 교환 문의
+            - CLAIM_COMPENSATION : 배송지연 보상, 상품 파손 보상, 사고 배상 문의
+            - NONE : 위 3가지 해당하지 않거나 알 수 없는 경우
+            [JSON 출력 형식]
+            { "action_type" : "TRACK_DELIVERY" , "order_id" : "추출한 주문번호(예:ORD-202601-001, 없으면 빈 문자열)" , "reason" : "분류이유" }
+            
+            고객의 요청 :%s
+            """, message);
+
+    //  프롬프트 전달하여 결과 받기
+        String response = LLMCall( prompt );
+
+        try{
+    //  Map -> JSON 변환
+        JsonNode root = objectMapper.readTree(response);
+        
+    //  JSON 안에 "action_type" 추출
+    //  root.path("속성명") : 속성명에 따른 속성값 추출
+        String action_type = root.path("action_type").asText("NONE");
+
+    //  JSON 안에 "order_id" 추출
+        String orderId = root.path("order_id").asText("");
+
+    //  action_type 과 order_id 가지고 각종 서비스 라우팅/연결분기
+        if(action_type.equals("TRACK_DELIVERY")){ return processOrder( orderId , "고객이 배송 상태 조회를 요청했습니다. 위 주문 기록을 확인하고 현재 위치와 배송 예정 상태를 친절하게 안내해줘."); }
+        else if(action_type.equals("RETURN_REQUEST")){ return processOrder( orderId , "고객이 반품을 요청 , 위 주문 기록과 사유를 확인하고 반품 수거 절차를 안내해줘."); }
+        else if(action_type.equals("CLAIM_COMPENSATION")){ return processOrder( orderId , "고객이 배송지연 및 파손에 대한 보상청구 요청, 위 주문 기록의 배송일수를 근거로 보상 기준 해당 여부와 접수 절차 안내해줘."); }
+        else{ return "요청을 파악하지 못했습니다. 다시 요청해주세요"; }
+
+        }catch(Exception e){System.out.println(e);}
+
+        return null;
+
+    }
+
+    public String processOrder( String order_id , String prompt ){
+
+        DeliveryLog deliveryLog = deliveryLogRepository.findById(order_id).orElse(null);
+
+        if (deliveryLog == null) { return "주문번호가 없습니다."; }
+
+        try{
+
+        String jsonlog = objectMapper.writeValueAsString(deliveryLog);
+
+        String requestPrompt = String.format("""
+            [주문 정보] %s
+            [요청 사항] %s
+            """, jsonlog, prompt);
+
+        return LLMCall( requestPrompt );
+
+        }catch(Exception e){System.out.println(e);}
+
+        return null;
+        
+    }
 
 
 }

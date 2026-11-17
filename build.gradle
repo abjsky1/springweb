@@ -61,7 +61,11 @@ dependencies {
 //	11. WebSocket
 	implementation 'org.springframework.boot:spring-boot-starter-websocket'
 
-
+//	12. 웹크롤링 
+//	(1) 동적페이지 용도 - jsoup
+	implementation 'org.jsoup:jsoup:1.23.2'
+//	(2) 정적페이지 용도 - playwright
+	implementation 'com.microsoft.playwright:playwright:1.63.0'
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
